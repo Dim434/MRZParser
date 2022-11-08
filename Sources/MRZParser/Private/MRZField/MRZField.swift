@@ -11,7 +11,7 @@ public enum MRZFieldType {
 }
 
 // MARK: - BasicFields
-typealias NamesField = (surnames: String, givenNames: String)
+public typealias NamesField = (surnames: String, givenNames: String)
 
 public struct Field {
     public let value: String
