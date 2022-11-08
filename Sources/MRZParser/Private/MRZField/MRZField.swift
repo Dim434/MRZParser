@@ -5,7 +5,7 @@
 //  Created by Roman Mazeev on 15.06.2021.
 //
 
-enum MRZFieldType {
+public enum MRZFieldType {
     case documentType, countryCode, names, documentNumber, nationality, birthdate, sex,
          expiryDate, personalNumber, optionalData, hash
 }
@@ -13,26 +13,26 @@ enum MRZFieldType {
 // MARK: - BasicFields
 typealias NamesField = (surnames: String, givenNames: String)
 
-struct Field {
-    let value: String
-    let rawValue: String
+public struct Field {
+    public let value: String
+    public let rawValue: String
 }
 
 // MARK: ValidatedField
-protocol ValidatedFieldProtocol {
+public protocol ValidatedFieldProtocol {
     var rawValue: String { get }
     var checkDigit: String { get }
     var isValid: Bool { get }
 }
 
-extension ValidatedFieldProtocol {
-    var isValid: Bool {
+public extension ValidatedFieldProtocol {
+    public var isValid: Bool {
         return MRZFieldFormatter.isValueValid(rawValue, checkDigit: checkDigit)
     }
 }
 
-struct ValidatedField<T>: ValidatedFieldProtocol {
-    let value: T
-    let rawValue: String
-    let checkDigit: String
+public struct ValidatedField<T>: ValidatedFieldProtocol {
+    public let value: T
+    public let rawValue: String
+    public let checkDigit: String
 }
