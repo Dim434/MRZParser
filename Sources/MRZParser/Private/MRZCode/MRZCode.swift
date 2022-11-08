@@ -7,21 +7,21 @@
 
 import Foundation
 
-struct MRZCode {
-    let format: MRZFormat
-    var documentTypeField: Field
-    var countryCodeField: Field
-    var documentNumberField: ValidatedField<String>
-    var birthdateField: ValidatedField<Date?>
-    var sexField: Field
-    var expiryDateField: ValidatedField<Date?>
-    var nationalityField: Field
-    var optionalDataField: ValidatedField<String>
-    var optionalData2Field: ValidatedField<String>?
-    var namesField: NamesField
-    var finalCheckDigit: String
+public struct MRZCode {
+    public let format: MRZFormat
+    public var documentTypeField: Field
+    public var countryCodeField: Field
+    public var documentNumberField: ValidatedField<String>
+    public var birthdateField: ValidatedField<Date?>
+    public var sexField: Field
+    public var expiryDateField: ValidatedField<Date?>
+    public var nationalityField: Field
+    public var optionalDataField: ValidatedField<String>
+    public var optionalData2Field: ValidatedField<String>?
+    public var namesField: NamesField
+    public var finalCheckDigit: String
 
-    var isValid: Bool {
+    public var isValid: Bool {
         if !finalCheckDigit.isEmpty {
             var fieldsValidate: [ValidatedFieldProtocol] = [ documentNumberField ]
 

@@ -17,39 +17,36 @@ public struct MRZParser {
     }
 
     // MARK: Parsing
-    public func parse(mrzLines: [String]) -> MRZResult? {
+    public func parse(mrzLines: [String]) -> MRZCode? {
         guard let format = mrzFormat(from: mrzLines) else { return nil }
-
         let mrzCode: MRZCode = MRZCodeFactory().create(
             from: mrzLines,
             format: format,
             formatter: formatter
         )
-
         guard mrzCode.isValid else { return nil }
-
         let documentType = mrzCode.documentTypeField.value
-
-        return .init(
-            format: format,
-            documentType: MRZResult.DocumentType.allCases.first { $0.identifier == documentType.first } ?? .undefined,
-            documentTypeAdditional: documentType.count == 2 ? documentType.last : nil,
-            countryCode: mrzCode.countryCodeField.value,
-            surnames: mrzCode.namesField.surnames,
-            givenNames: mrzCode.namesField.givenNames,
-            documentNumber: mrzCode.documentNumberField.value,
-            nationalityCountryCode: mrzCode.nationalityField.value,
-            birthdate: mrzCode.birthdateField.value,
-            sex: MRZResult.Sex.allCases.first(where: {
-                $0.identifier.contains(mrzCode.sexField.value)
-            }) ?? .unspecified,
-            expiryDate: mrzCode.expiryDateField.value,
-            optionalData: mrzCode.optionalDataField.value,
-            optionalData2: mrzCode.optionalData2Field?.value
-        )
+        return mrzCode
+//        return .init(
+//            format: format,
+//            documentType: MRZResult.DocumentType.allCases.first { $0.identifier == documentType.first } ?? .undefined,
+//            documentTypeAdditional: documentType.count == 2 ? documentType.last : nil,
+//            countryCode: mrzCode.countryCodeField.value,
+//            surnames: mrzCode.namesField.surnames,
+//            givenNames: mrzCode.namesField.givenNames,
+//            documentNumber: mrzCode.documentNumberField.value,
+//            nationalityCountryCode: mrzCode.nationalityField.value,
+//            birthdate: mrzCode.birthdateField.value,
+//            sex: MRZResult.Sex.allCases.first(where: {
+//                $0.identifier.contains(mrzCode.sexField.value)
+//            }) ?? .unspecified,
+//            expiryDate: mrzCode.expiryDateField.value,
+//            optionalData: mrzCode.optionalDataField.value,
+//            optionalData2: mrzCode.optionalData2Field?.value
+//        )
     }
 
-    public func parse(mrzString: String) -> MRZResult? {
+    public func parse(mrzString: String) -> MRZCode? {
         return parse(mrzLines: mrzString.components(separatedBy: "\n"))
     }
 
